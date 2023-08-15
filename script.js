@@ -16,8 +16,8 @@ if(navigator.geolocation){
             console.log(latitude, longitude);
             console.log(`https://www.google.com/maps/@${latitude},${longitude},12z`);
 
-         
-            const coords = [latitude + 5, longitude + 5];
+            const coords = [latitude, longitude];
+
             const map = L.map('map').setView(coords, 12);
 
             L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
@@ -25,12 +25,24 @@ if(navigator.geolocation){
                 '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
              }).addTo(map);
 
-            L.marker(coords)
-                .addTo(map)
-                .bindPopup('Coordinates')
-                .openPopup();
 
-   
+            map.on('click', (mapEvent)=>{
+                //console.log(mapEvent);
+                const {lat, lng} = mapEvent.latlng;
+
+
+                L.marker([lat, lng])
+                .addTo(map)
+                .bindPopup(L.popup({
+                    maxWidth: 300,
+                    minWidth: 50,
+                    autoClose: false,
+                    closeOnClick: false,
+                    className: 'running-popup'
+                }))
+                .setPopupContent('String')
+                .openPopup();
+            });  
 
 
     },
