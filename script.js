@@ -11,7 +11,10 @@ const inputElevation = document.querySelector('.form__input--climb');
 if(navigator.geolocation){
     navigator.geolocation.getCurrentPosition(
         function(position){
-            console.log(position);
+            const {latitude} = position.coords;
+            const {longitude} = position.coords;
+            console.log(latitude, longitude);
+            console.log(`https://www.google.com/maps/@${latitude},${longitude},15z`);
     },
         function(){
             alert('Cannot get your coordinates');
