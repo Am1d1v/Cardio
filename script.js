@@ -16,18 +16,19 @@ if(navigator.geolocation){
             console.log(latitude, longitude);
             console.log(`https://www.google.com/maps/@${latitude},${longitude},12z`);
 
-        const map = L.map('map').setView([latitude, longitude], 12);
-    
+         
+            const coords = [latitude, longitude];
+            const map = L.map('map').setView(coords, 12);
 
-    L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
-      attribution:
-        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    }).addTo(map);
+            L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+                attribution:
+                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+             }).addTo(map);
 
-    L.marker([latitude, longitude])
-        .addTo(map)
-        .bindPopup('Coordinates')
-        .openPopup();
+            L.marker(coords)
+                .addTo(map)
+                .bindPopup('Coordinates')
+                .openPopup();
 
    
 
