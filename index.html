@@ -15,6 +15,12 @@
 
     <link rel="stylesheet" href="style.css" />
 
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+      crossorigin=""
+    />
     <script
       defer
       src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
@@ -40,7 +46,7 @@
           </div>
           <div class="form__row">
             <label class="form__label">Расстояние</label>
-            <input class="form__input form__input--distance" placeholder="km" />
+            <input class="form__input form__input--distance" placeholder="км" />
           </div>
           <div class="form__row">
             <label class="form__label">Длительность</label>
@@ -81,7 +87,7 @@
           <div class="workout__details">
             <span class="workout__icon">📏⏱</span>
             <span class="workout__value">238</span>
-            <span class="workout__unit">м/мин</span>
+            <span class="workout__unit">мин/км</span>
           </div>
           <div class="workout__details">
             <span class="workout__icon">👟⏱</span>
@@ -116,15 +122,15 @@
       </ul>
 
       <p class="footer__copyright">
-        Cardio App
+        Cardio 
       </p>
       <p class="footer__copyright">
         &copy;
         <a
-          class="footer__link masters-of-code-link"
-          target="_blank"
-          href="https://github.com/Am1d1v"
-          >GitHub</a
+        class="footer__link masters-of-code-link"
+        target="_blank"
+        href="https://github.com/Am1d1v"
+        >GitHub</a
         >.
       </p>
     </div>

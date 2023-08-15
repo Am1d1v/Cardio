@@ -17,7 +17,7 @@ if(navigator.geolocation){
             console.log(`https://www.google.com/maps/@${latitude},${longitude},12z`);
 
          
-            const coords = [latitude, longitude];
+            const coords = [latitude + 5, longitude + 5];
             const map = L.map('map').setView(coords, 12);
 
             L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
