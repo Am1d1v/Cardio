@@ -8,8 +8,7 @@ const inputDuration = document.querySelector('.form__input--duration');
 const inputTemp = document.querySelector('.form__input--temp');
 const inputClimb = document.querySelector('.form__input--climb');
 
-let map;
-let mapEvent;
+
 
 class App {
 
@@ -22,10 +21,7 @@ class App {
         
         form.addEventListener('submit', this._newWorkout.bind(this));
 
-        inputType.addEventListener('change', () => {
-            inputClimb.closest('.form__row').classList.toggle('form__row--hidden');
-            inputTemp.closest('.form__row').classList.toggle('form__row--hidden');
-        });
+        inputType.addEventListener('change', this._toggleClimbField.bind(this));
 
     }
     _getPosition(){
@@ -51,22 +47,20 @@ class App {
              }).addTo(this.#map);
 
 
-            this.#map.on('click', (event)=>{
-                
-                this.#mapEvent = event;
-                form.classList.remove('hidden');    
-                inputDistance.focus();
- 
-            });  
+            this.#map.on('click', this._showForm.bind(this));  
 
     }
 
-    _showForm(){
+    _showForm(event){
+        this.#mapEvent = event;
+                form.classList.remove('hidden');    
+                inputDistance.focus();
 
     }
 
     _toggleClimbField(){
-
+        inputClimb.closest('.form__row').classList.toggle('form__row--hidden');
+        inputTemp.closest('.form__row').classList.toggle('form__row--hidden');
     }
 
     _newWorkout(event){
@@ -85,7 +79,7 @@ class App {
             // Marker view
             const {lat, lng} = this.#mapEvent.latlng;
         
-    
+
             L.marker([lat, lng])
                 .addTo(this.#map)
                 .bindPopup(L.popup({
@@ -97,7 +91,8 @@ class App {
                 }))
                 .setPopupContent('Cardio')
                 .openPopup();
-    }
+            
+            }
 
 }
 
