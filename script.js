@@ -13,14 +13,24 @@ let mapEvent;
 
 class App {
 
+    #map;
+    #mapEvent;
+
     constructor(){
+
+        this._getPosition();
+        
+        form.addEventListener('submit', this._newWorkout.bind(this));
+
+        inputType.addEventListener('change', () => {
+            inputClimb.closest('.form__row').classList.toggle('form__row--hidden');
+            inputTemp.closest('.form__row').classList.toggle('form__row--hidden');
+        });
 
     }
     _getPosition(){
         if(navigator.geolocation){
-            navigator.geolocation.getCurrentPosition(
-                this._loadMap,
-                function(){
+            navigator.geolocation.getCurrentPosition(this._loadMap.bind(this), function(){
                     alert('Cannot get your coordinates');
                 }
             )
@@ -33,17 +43,17 @@ class App {
             const {longitude} = position.coords;
 
             const coords = [latitude, longitude];
-            const map = L.map('map').setView(coords, 12);
+            this.#map = L.map('map').setView(coords, 12);
 
             L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
                 attribution:
                 '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-             }).addTo(map);
+             }).addTo(this.#map);
 
 
-            map.on('click', (event)=>{
+            this.#map.on('click', (event)=>{
                 
-                mapEvent = event;
+                this.#mapEvent = event;
                 form.classList.remove('hidden');    
                 inputDistance.focus();
  
@@ -59,53 +69,49 @@ class App {
 
     }
 
-    _newWorkout(){
+    _newWorkout(event){
+        event.preventDefault();
         
+
+            // Input Field Cleansing
+            inputDistance.value =
+            inputDuration.value = 
+            inputTemp.value = 
+            inputClimb.value = '';
+        
+            // Input clearence
+            inputDistance.value = inputDuration.value  = inputTemp.value  = inputClimb.value  = '';
+        
+            // Marker view
+            const {lat, lng} = this.#mapEvent.latlng;
+        
+    
+            L.marker([lat, lng])
+                .addTo(this.#map)
+                .bindPopup(L.popup({
+                    maxWidth: 300,
+                    minWidth: 50,
+                    autoClose: false,
+                    closeOnClick: false,
+                    className: 'running-popup'
+                }))
+                .setPopupContent('Cardio')
+                .openPopup();
     }
 
 }
 
 const app = new App();
-app._getPosition();
 
 
 
-/*
-
-inputType.addEventListener('change', () => {
-    inputClimb.closest('.form__row').classList.toggle('form__row--hidden');
-    inputTemp.closest('.form__row').classList.toggle('form__row--hidden');
-});
 
 
 
-form.addEventListener('submit', function(event){
-        
-    event.preventDefault();
-
-    // Input clearence
-    inputDistance.value = inputDuration.value  = inputTemp.value  = inputClimb.value  = '';
-
-    // Marker view
-    const {lat, lng} = mapEvent.latlng;
 
 
-    L.marker([lat, lng])
-        .addTo(map)
-        .bindPopup(L.popup({
-            maxWidth: 300,
-            minWidth: 50,
-            autoClose: false,
-            closeOnClick: false,
-            className: 'running-popup'
-        }))
-        .setPopupContent('Cardio')
-        .openPopup();
 
-});
-},
 
-*/
 
 
 
