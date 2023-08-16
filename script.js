@@ -11,13 +11,26 @@ const inputClimb = document.querySelector('.form__input--climb');
 let map;
 let mapEvent;
 
-if(navigator.geolocation){
-    navigator.geolocation.getCurrentPosition(
-        function(position){
+class App {
+
+    constructor(){
+
+    }
+    _getPosition(){
+        if(navigator.geolocation){
+            navigator.geolocation.getCurrentPosition(
+                this._loadMap,
+                function(){
+                    alert('Cannot get your coordinates');
+                }
+            )
+        }
+    }
+                    
+    _loadMap(position){
+
             const {latitude} = position.coords;
             const {longitude} = position.coords;
-          //  console.log(latitude, longitude);
-          //  console.log(`https://www.google.com/maps/@${latitude},${longitude},12z`);
 
             const coords = [latitude, longitude];
             const map = L.map('map').setView(coords, 12);
@@ -36,36 +49,28 @@ if(navigator.geolocation){
  
             });  
 
-            form.addEventListener('submit', function(event){
+    }
 
-                event.preventDefault();
+    _showForm(){
 
-                // Input clearence
-                inputDistance.value = inputDuration.value  = inputTemp.value  = inputClimb.value  = '';
-            
-                // Marker view
-                const {lat, lng} = mapEvent.latlng;
-            
-            
-                L.marker([lat, lng])
-                    .addTo(map)
-                    .bindPopup(L.popup({
-                        maxWidth: 300,
-                        minWidth: 50,
-                        autoClose: false,
-                        closeOnClick: false,
-                        className: 'running-popup'
-                    }))
-                    .setPopupContent('Cardio')
-                    .openPopup();
-            
-            });
-    },
-        function(){
-            alert('Cannot get your coordinates');
-        }
-    );
+    }
+
+    _toggleClimbField(){
+
+    }
+
+    _newWorkout(){
+        
+    }
+
 }
+
+const app = new App();
+app._getPosition();
+
+
+
+/*
 
 inputType.addEventListener('change', () => {
     inputClimb.closest('.form__row').classList.toggle('form__row--hidden');
@@ -74,7 +79,33 @@ inputType.addEventListener('change', () => {
 
 
 
+form.addEventListener('submit', function(event){
+        
+    event.preventDefault();
 
+    // Input clearence
+    inputDistance.value = inputDuration.value  = inputTemp.value  = inputClimb.value  = '';
+
+    // Marker view
+    const {lat, lng} = mapEvent.latlng;
+
+
+    L.marker([lat, lng])
+        .addTo(map)
+        .bindPopup(L.popup({
+            maxWidth: 300,
+            minWidth: 50,
+            autoClose: false,
+            closeOnClick: false,
+            className: 'running-popup'
+        }))
+        .setPopupContent('Cardio')
+        .openPopup();
+
+});
+},
+
+*/
 
 
 
