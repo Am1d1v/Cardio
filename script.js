@@ -9,6 +9,51 @@ const inputTemp = document.querySelector('.form__input--temp');
 const inputClimb = document.querySelector('.form__input--climb');
 
 
+class Workout{
+
+    date = new Date();
+    id = (new Date() + '').slice(-18);
+
+    constructor(coords, distance, duration){
+        this.coords = coords;
+        this.distance = distance; // km
+        this.duration = duration; // min 
+    }
+}
+
+class Running extends Workout{
+
+    constructor(coords, distance, duration, temp){
+        super(coords, distance, duration);
+        this.temp = temp;
+        this.calculatePace();
+    }
+
+    calculatePace(){
+        // pace = min / km
+        this.pace = this.duration / this.distance;
+    }
+}
+
+
+class Cycling extends Workout{
+
+    constructor(coords, distance, duration, climb){
+        super(coords, distance, duration);
+        this.climb = climb;
+        this.calculateSpeed();
+    }
+
+    calculateSpeed(){
+        
+        this.speed = this.distance / (this.duration /  60);
+    }
+}
+
+const running = new Running([50, 50], 6, 40, 150);
+const cycling = new Cycling([50, 50], 40, 80, 340);
+console.log(running, cycling);
+
 
 class App {
 
