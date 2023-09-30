@@ -109,6 +109,11 @@ class App {
     }
 
     _newWorkout(event){
+
+        const areNumbers = (...numbers) => numbers.every(num => Number.isFinite(num))
+
+        
+
         event.preventDefault();
         
             // Getting Training Data 
@@ -121,7 +126,12 @@ class App {
 
             if (type === 'running'){
                 const temp = +inputTemp.value;
-                if(!Number.isFinite(distance) || !Number.isFinite(duration) || !Number.isFinite(temp)){
+                if(
+                    !areNumbers(distance, duration, temp)
+                //    !Number.isFinite(distance) || 
+                //    !Number.isFinite(duration) || 
+                //    !Number.isFinite(temp)
+                ){
                     return alert('Input number');
                 }
             }
