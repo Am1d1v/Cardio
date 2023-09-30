@@ -117,6 +117,21 @@ class App {
             const distance = +inputDistance.value;
             const duration = +inputDuration.value;
 
+            // Check type of training
+
+            if (type === 'running'){
+                const temp = +inputTemp.value;
+                if(!Number.isFinite(distance) || !Number.isFinite(duration) || !Number.isFinite(temp)){
+                    return alert('Input number');
+                }
+            }
+
+            if (type === 'cycling'){
+                const climb = +inputClimb.value;
+                if(!Number.isFinite(distance) || !Number.isFinite(duration) || !Number.isFinite(climb)){
+                    return alert('Input number');
+                }
+            }
 
             // Show Ttaining on Map
 
