@@ -12,7 +12,7 @@ const inputClimb = document.querySelector('.form__input--climb');
 class Workout{
 
     date = new Date();
-    id = (new Date() + '').slice(-18);
+    id = (Date.now() + '').slice(-18);
 
     constructor(coords, distance, duration){
         this.coords = coords;
@@ -111,20 +111,17 @@ class App {
     _newWorkout(event){
         event.preventDefault();
         
+            // Getting Training Data 
 
-            // Input Field Cleansing
-            inputDistance.value =
-            inputDuration.value = 
-            inputTemp.value = 
-            inputClimb.value = '';
-        
-            // Input clearence
-            inputDistance.value = inputDuration.value  = inputTemp.value  = inputClimb.value  = '';
-        
-            // Marker view
+            const type = inputType.value;
+            const distance = +inputDistance.value;
+            const duration = +inputDuration.value;
+
+
+            // Show Ttaining on Map
+
             const {lat, lng} = this.#mapEvent.latlng;
         
-
             L.marker([lat, lng])
                 .addTo(this.#map)
                 .bindPopup(L.popup({
@@ -136,6 +133,16 @@ class App {
                 }))
                 .setPopupContent('Cardio')
                 .openPopup();
+
+            // Input Field Cleansing
+            inputDistance.value =
+            inputDuration.value = 
+            inputTemp.value = 
+            inputClimb.value = '';
+        
+            // Input clearence
+            inputDistance.value = inputDuration.value  = inputTemp.value  = inputClimb.value  = '';
+        
             
             }
 
