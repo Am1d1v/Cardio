@@ -259,6 +259,8 @@ class App {
                         `
                     }
 
+                    form.insertAdjacentHTML('afterend', html);
+
             }
         }
 
