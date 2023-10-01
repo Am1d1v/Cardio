@@ -22,7 +22,11 @@ class Workout{
 
     _setDescription(){
 
-        this.type === 'running' ? this.description = `Пробежка ${Date()}` : this.description = `Велотренировка ${Date()}`
+        this.type === 'running' 
+            ? 
+        this.description = `Пробежка ${new Intl.DateTimeFormat('ru-Ru').format(this.date)}`
+            : 
+        this.description = `Велотренировка ${new Intl.DateTimeFormat('ru-Ru').format(this.date)}`
     }
 }
 
