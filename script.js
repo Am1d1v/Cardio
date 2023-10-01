@@ -23,6 +23,8 @@ class Workout{
 
 class Running extends Workout{
 
+    type = 'running';
+
     constructor(coords, distance, duration, temp){
         super(coords, distance, duration);
         this.temp = temp;
@@ -37,6 +39,8 @@ class Running extends Workout{
 
 
 class Cycling extends Workout{
+
+    type = 'cycling';
 
     constructor(coords, distance, duration, climb){
         super(coords, distance, duration);
@@ -167,17 +171,7 @@ class App {
 
             // Show Training on Map
         
-            L.marker([lat, lng])
-                .addTo(this.#map)
-                .bindPopup(L.popup({
-                    maxWidth: 300,
-                    minWidth: 50,
-                    autoClose: false,
-                    closeOnClick: false,
-                    className: 'running-popup'
-                }))
-                .setPopupContent('Cardio')
-                .openPopup();
+            this.displayWorkout(workout);
 
             // Input Field Cleansing
             inputDistance.value =
@@ -187,11 +181,25 @@ class App {
         
             // Input clearence
             inputDistance.value = inputDuration.value  = inputTemp.value  = inputClimb.value  = '';
-        
-            
             }
 
-}
+            
+            displayWorkout(workout){
+                L.marker(workout.coords)
+                .addTo(this.#map)
+                .bindPopup(L.popup({
+                    maxWidth: 300,
+                    minWidth: 50,
+                    autoClose: false,
+                    closeOnClick: false,
+                    className: `${workout.type}-popup`
+                }))
+                .setPopupContent('Cardio')
+                .openPopup();
+            }
+
+
+        }
 
 const app = new App();
 
