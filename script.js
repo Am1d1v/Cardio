@@ -120,6 +120,14 @@ class App {
 
     }
 
+    _hideInputForm(){
+            inputDistance.value =
+            inputDuration.value = 
+            inputTemp.value = 
+            inputClimb.value = '';
+            form.classList.add('hidden');
+    }
+
     _toggleClimbField(){
         inputClimb.closest('.form__row').classList.toggle('form__row--hidden');
         inputTemp.closest('.form__row').classList.toggle('form__row--hidden');
@@ -189,10 +197,7 @@ class App {
             this._displayWorkoutOnSidebar(workout);
 
             // Input Field Cleansing
-            inputDistance.value =
-            inputDuration.value = 
-            inputTemp.value = 
-            inputClimb.value = '';
+            this._hideInputForm();
         
             // Input clearence
             inputDistance.value = inputDuration.value  = inputTemp.value  = inputClimb.value  = '';
