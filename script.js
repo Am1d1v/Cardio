@@ -59,8 +59,10 @@ class App {
 
     #map;
     #mapEvent;
+    #workouts = [];
 
     constructor(){
+
 
         this._getPosition();
         
@@ -120,8 +122,10 @@ class App {
         */
 
         const areNumbersPositive = (...numbers) => numbers.every(num => num > 0);
-        
 
+        const {lat, lng} = this.#mapEvent.latlng;
+        let workout;
+        
         event.preventDefault();
         
             // Getting Training Data 
@@ -142,6 +146,9 @@ class App {
                 ){
                     return alert('Input positive number');
                 }
+
+                 workout = new Running([lat, lng], distance, duration, temp);
+                
             }
 
             if (type === 'cycling'){
@@ -149,11 +156,16 @@ class App {
                 if(!areNumbers(distance, duration, climb) || !areNumbersPositive(distance, duration)){
                     return alert('Input positive number');
                 }
+
+                 workout = new Cycling([lat, lng], distance, duration, climb);
+        
             }
 
-            // Show Ttaining on Map
+            // Add new training object in array
+            this.#workouts.push(workout);
+            console.log(workout);
 
-            const {lat, lng} = this.#mapEvent.latlng;
+            // Show Training on Map
         
             L.marker([lat, lng])
                 .addTo(this.#map)
