@@ -19,6 +19,11 @@ class Workout{
         this.distance = distance; // km
         this.duration = duration; // min 
     }
+
+    _setDescription(){
+
+        this.type === 'running' ? this.description = `Пробежка ${Date()}` : this.description = `Велотренировка ${Date()}`
+    }
 }
 
 class Running extends Workout{
@@ -29,6 +34,7 @@ class Running extends Workout{
         super(coords, distance, duration);
         this.temp = temp;
         this.calculatePace();
+        this._setDescription()
     }
 
     calculatePace(){
@@ -46,6 +52,7 @@ class Cycling extends Workout{
         super(coords, distance, duration);
         this.climb = climb;
         this.calculateSpeed();
+        this._setDescription()
     }
 
     calculateSpeed(){
@@ -171,7 +178,11 @@ class App {
 
             // Show Training on Map
         
-            this.displayWorkout(workout);
+            this._displayWorkout(workout);
+
+            // Show training list 
+
+            this._displayWorkoutOnSidebar(workout);
 
             // Input Field Cleansing
             inputDistance.value =
@@ -184,7 +195,7 @@ class App {
             }
 
             
-            displayWorkout(workout){
+            _displayWorkout(workout){
                 L.marker(workout.coords)
                 .addTo(this.#map)
                 .bindPopup(L.popup({
@@ -198,7 +209,57 @@ class App {
                 .openPopup();
             }
 
+            _displayWorkoutOnSidebar(workout){
 
+                let html = `
+                <li class="workout workout--${workout.type}" data-id="${workout.id}">
+                    <h2 class="workout__title">${workout.description}</h2>
+                    <div class="workout__details">
+                        <span class="workout__icon">${workout.type === 'running' ? '🏃' : '🚵‍♂️'}</span>
+                        <span class="workout__value">${workout.distance}</span>
+                        <span class="workout__unit">км</span>
+                    </div>
+                    <div class="workout__details">
+                        <span class="workout__icon">⏱</span>
+                        <span class="workout__value">${workout.duration}</span>
+                        <span class="workout__unit">мин</span>
+                    </div>
+                    `
+
+                    if(workout.type === 'running'){
+                        html += `
+                        <div class="workout__details">
+                            <span class="workout__icon">📏⏱</span>
+                            <span class="workout__value">${workout.pace}</span>
+                            <span class="workout__unit">мин/км</span>
+                        </div>
+                        <div class="workout__details">
+                            <span class="workout__icon">👟⏱</span>
+                            <span class="workout__value">${workout.temp}</span>
+                            <span class="workout__unit">шаг/мин</span>
+                        </div>
+                      </li>
+                        `
+                    }
+
+
+                    if(workout.type === 'cycling'){
+                        html += `
+                        <div class="workout__details">
+                            <span class="workout__icon">📏⏱</span>
+                            <span class="workout__value">${workout.speed}</span>
+                            <span class="workout__unit">км/ч</span>
+                        </div>
+                        <div class="workout__details">
+                            <span class="workout__icon">🏔</span>
+                            <span class="workout__value">${workout.climb}</span>
+                            <span class="workout__unit">м</span>
+                        </div>
+                        </li>
+                        `
+                    }
+
+            }
         }
 
 const app = new App();
