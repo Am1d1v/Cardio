@@ -111,7 +111,15 @@ class App {
     _newWorkout(event){
 
         const areNumbers = (...numbers) => numbers.every(num => Number.isFinite(num))
+        /*
+        const areNumbers = (...numbers) => {
+            return numbers.every((num) => {
+                return Number.isFinite(num)
+            })
+        }
+        */
 
+        const areNumbersPositive = (...numbers) => numbers.every(num => num > 0);
         
 
         event.preventDefault();
@@ -127,19 +135,19 @@ class App {
             if (type === 'running'){
                 const temp = +inputTemp.value;
                 if(
-                    !areNumbers(distance, duration, temp)
+                    !areNumbers(distance, duration, temp) || !areNumbersPositive(distance, duration, temp)
                 //    !Number.isFinite(distance) || 
                 //    !Number.isFinite(duration) || 
                 //    !Number.isFinite(temp)
                 ){
-                    return alert('Input number');
+                    return alert('Input positive number');
                 }
             }
 
             if (type === 'cycling'){
                 const climb = +inputClimb.value;
-                if(!Number.isFinite(distance) || !Number.isFinite(duration) || !Number.isFinite(climb)){
-                    return alert('Input number');
+                if(!areNumbers(distance, duration, climb) || !areNumbersPositive(distance, duration)){
+                    return alert('Input positive number');
                 }
             }
 
