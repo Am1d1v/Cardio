@@ -85,6 +85,8 @@ class App {
 
         inputType.addEventListener('change', this._toggleClimbField.bind(this));
 
+        containerWorkouts.addEventListener('click', this._moveToWorkOut.bind(this))
+
     }
     _getPosition(){
         if(navigator.geolocation){
@@ -269,8 +271,19 @@ class App {
                     }
 
                     form.insertAdjacentHTML('afterend', html);
-
             }
+
+            // Move to Workout
+
+            _moveToWorkOut(e){
+                const workoutElement = e.target.closest('.workout');
+                console.log(workoutElement);
+
+                if(!workoutElement) return;
+
+                const workout = this.#workouts.find(item => item.id === workoutElement.dataset.id)
+            }
+
         }
 
 const app = new App();
