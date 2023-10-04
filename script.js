@@ -281,7 +281,17 @@ class App {
 
                 if(!workoutElement) return;
 
-                const workout = this.#workouts.find(item => item.id === workoutElement.dataset.id)
+                const workout = this.#workouts.find(item => item.id === workoutElement.dataset.id);
+
+
+                // Definite training zoom
+                this.#map.setView(workout.coords, 12, {
+                    animate: true,
+                    pan: {
+                        duration: 2
+                    }
+                });
+
             }
 
         }
