@@ -203,10 +203,15 @@ class App {
         
             // Input clearence
             inputDistance.value = inputDuration.value  = inputTemp.value  = inputClimb.value  = '';
+
+            // Add All Workouts to Local Storage
+
+            this._addWorkoutsToLocalStorage();
+
             }
 
             
-            _displayWorkout(workout){
+    _displayWorkout(workout){
                 L.marker(workout.coords)
                 .addTo(this.#map)
                 .bindPopup(L.popup({
@@ -220,7 +225,7 @@ class App {
                 .openPopup();
             }
 
-            _displayWorkoutOnSidebar(workout){
+    _displayWorkoutOnSidebar(workout){
 
                 let html = `
                 <li class="workout workout--${workout.type}" data-id="${workout.id}">
@@ -292,6 +297,10 @@ class App {
                     }
                 });
 
+            }
+
+            _addWorkoutsToLocalStorage(){
+                localStorage.setItem('workouts', JSON.stringify(this.#workouts));
             }
 
         }
