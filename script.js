@@ -319,7 +319,7 @@ class App {
                 this.#workouts = data;
 
                 this.#workouts.forEach((info) => {
-                    console.log(info);
+                    this._displayWorkoutOnSidebar(info);
                 })
             }
 
