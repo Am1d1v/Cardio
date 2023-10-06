@@ -120,6 +120,12 @@ class App {
 
             this.#map.on('click', this._showForm.bind(this));  
 
+             // Display Training Marker
+
+            this.#workouts.forEach((info) => {
+                this._displayWorkout(info)
+            })
+
     }
 
     _showForm(event){
