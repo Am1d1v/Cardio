@@ -65,9 +65,9 @@ class Cycling extends Workout{
     }
 }
 
-const running = new Running([50, 50], 6, 40, 150);
-const cycling = new Cycling([50, 50], 40, 80, 340);
-console.log(running, cycling);
+//const running = new Running([50, 50], 6, 40, 150);
+//const cycling = new Cycling([50, 50], 40, 80, 340);
+//console.log(running, cycling);
 
 
 class App {
@@ -310,6 +310,7 @@ class App {
                     }
                 });
 
+
             }
 
             _addWorkoutsToLocalStorage(){
@@ -327,6 +328,11 @@ class App {
                 this.#workouts.forEach((info) => {
                     this._displayWorkoutOnSidebar(info);
                 })
+            }
+
+
+            resetWorkouts(){
+                    localStorage.removeItem('workouts');
             }
 
         }
